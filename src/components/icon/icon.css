@@ -1,0 +1,13 @@
+.icon {
+  position: relative;
+  display: inline-flex;
+}
+
+.icon > svg {
+  position: relative;
+  top: 0.1875em;
+
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+}

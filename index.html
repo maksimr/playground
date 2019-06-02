@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress HtmlUnknownTag, CssInvalidHtmlTagReference -->
 <html lang="">
 
   <head>
@@ -6,10 +7,50 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" type="image/png" href="">
     <title></title>
+
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      p-resizable div {
+        height: 100vh;
+        transition: filter 0.3s;
+      }
+
+      .resizing div {
+        filter: blur(0.1rem);
+      }
+
+      p-resizer {
+        background-color: #fff;
+        transition: transform;
+        transition-duration: 0.2s;
+        cursor: grab;
+      }
+
+      p-resizer:hover {
+        transform: scaleX(3.5);
+      }
+    </style>
   </head>
 
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <p-resizable id="foo">
+        <div style="background-color: bisque;">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci aliquid aperiam culpa dicta earum est
+          facere fugiat illo iste modi obcaecati pariatur porro repellat repudiandae, rerum sint veritatis, voluptatum?
+        </div>
+
+        <div style="background-color: deeppink">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet architecto autem deleniti facilis laborum
+          maiores molestias nesciunt non nulla numquam perspiciatis quibusdam quisquam repellat sed sequi sunt,
+          temporibus velit.
+        </div>
+      </p-resizable>
+    </div>
     <!--suppress HtmlUnknownTarget -->
     <script src="main.js" charset="utf-8"></script>
   </body>

@@ -2,7 +2,7 @@
   "name": "playground",
   "version": "0.0.0",
   "scripts": {
-    "start": "webpack-dev-server --mode=development --devtool=eval-source-map"
+    "start": "webpack-dev-server --mode=development --host=0.0.0.0 --devtool=eval-source-map"
   },
   "devDependencies": {
     "css-loader": "2.1.0",

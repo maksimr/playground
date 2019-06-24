@@ -10,5 +10,8 @@
     "webpack": "4.30.0",
     "webpack-cli": "3.2.3",
     "webpack-dev-server": "3.1.14"
+  },
+  "dependencies": {
+    "angular": "^1.7.8"
   }
 }

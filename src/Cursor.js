@@ -4,7 +4,7 @@ export class Cursor {
     this.size = seq.length;
     this.seq = seq;
   }
-  next() { return this.seq[this.index++] }
-  hasNext() { return this.index < this.size }
-  peek() { return this.seq[this.index] }
+  next() { return this.seq[this.index++]; }
+  hasNext() { return this.index < this.size; }
+  peek() { return this.seq[this.index]; }
 }

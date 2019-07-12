@@ -3,8 +3,31 @@
   "version": "0.0.0",
   "scripts": {
     "start": "webpack-dev-server --mode=development --host=0.0.0.0 --devtool=eval-source-map",
+    "lint": "eslint src/",
     "test": "jest",
     "test:watch": "npm test -- --watch"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "globals": {
+      "it": true,
+      "describe": true
+    },
+    "rules": {
+      "semi": "error",
+      "max-depth": "error",
+      "complexity": "error",
+      "no-undef": "error",
+      "no-unused-vars": "error",
+      "no-const-assign": "error",
+      "quotes": [
+        "error",
+        "single"
+      ]
+    }
   },
   "babel": {
     "presets": [
@@ -20,6 +43,7 @@
     "@babel/preset-env": "7.5.4",
     "babel-jest": "24.8.0",
     "css-loader": "2.1.0",
+    "eslint": "6.0.1",
     "jest-cli": "24.8.0",
     "style-loader": "0.23.1",
     "webpack": "4.30.0",

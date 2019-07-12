@@ -24,16 +24,16 @@ describe('Lexer', function() {
     assert.deepEqual(Lexer.parse('or'), [Token.OR()]);
     assert.deepEqual(Lexer.parse('and'), [Token.AND()]);
     assert.deepEqual(Lexer.parse('not'), [Token.NOT()]);
-  })
+  });
 
   it('should correctly parse value', function() {
     assert.deepEqual(Lexer.parse('foo'), [Token.VALUE('foo')]);
-  })
+  });
 
   it('should correctly parse value inside curly braces', function() {
     assert.deepEqual(Lexer.parse('{foo}'), [Token.VALUE('foo')]);
     assert.deepEqual(Lexer.parse('{foo bar}'), [Token.VALUE('foo bar')]);
-  })
+  });
 
   it('should correctly parse query with field name and field value', function() {
     assert.deepEqual(Lexer.parse('foo: bar'), [
@@ -41,9 +41,9 @@ describe('Lexer', function() {
       Token.COLON(),
       Token.VALUE('bar')
     ]);
-  })
+  });
 
   it('should throw error for unmatched curly brace', function() {
     assert.throws(() => Lexer.parse('{foo'), /Unterminated "{"/);
-  })
-})
+  });
+});

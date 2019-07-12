@@ -4,4 +4,4 @@ function main() {
   return Lexer.parse('foo: bar');
 }
 
-main()
+main();

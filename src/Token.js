@@ -1,4 +1,7 @@
 export class Token {
+  static typeOf(token, type) {
+    return token.type === type;
+  }
   constructor(type, value) {
     this.type = type;
     this.value = value;

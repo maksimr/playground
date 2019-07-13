@@ -69,6 +69,23 @@ describe('Parser', function() {
     );
   });
 
+  it('should correctly parse empty Tuple expression', function() {
+    deepEqual(Parser.parse('foo()'), Node.Tuple(Node.TupleName('foo'), []));
+  });
+
+  it('should correctly parse Tuple expression with one field', function() {
+    deepEqual(Parser.parse('foo(bar: zoo)'), Node.Tuple(Node.TupleName('foo'), [
+      Node.Field(Node.FieldName('bar'), Node.FieldValue('zoo'))
+    ]));
+  });
+
+  it('should correctly parse Tuple expression with multiple fields', function() {
+    deepEqual(Parser.parse('foo(bar: zoo moo: doo)'), Node.Tuple(Node.TupleName('foo'), [
+      Node.Field(Node.FieldName('bar'), Node.FieldValue('zoo')),
+      Node.Field(Node.FieldName('moo'), Node.FieldValue('doo'))
+    ]));
+  });
+
   describe('Error', function() {
     const UNEXPECTED_TOKEN = /Unexpected token/;
 

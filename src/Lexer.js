@@ -16,15 +16,16 @@ export class Lexer {
         case (':' === char): tokens.push(Token.COLON()); break;
         case ('(' === char): tokens.push(Token.LEFT_PAREN()); break;
         case (')' === char): tokens.push(Token.RIGHT_PAREN()); break;
-        case ('{' === char):
-          var value = '';
+        case ('{' === char): {
+          let value = '';
           while (cursor.hasNext() && cursor.peek() !== '}') value += cursor.next();
           if (!cursor.hasNext()) throw Lexer.Error('Unterminated "{"');
           cursor.next();
           tokens.push(Token.VALUE(value));
           break;
-        case (/\w/.test(char)):
-          var value = char;
+        }
+        case (/\w/.test(char)): {
+          let value = char;
           while (cursor.hasNext() && /\w/.test(cursor.peek())) value += cursor.next();
           switch (value) {
             case 'or': tokens.push(Token.OR()); break;
@@ -33,6 +34,7 @@ export class Lexer {
             default: tokens.push(Token.VALUE(value)); break;
           }
           break;
+        }
       }
     }
 

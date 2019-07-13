@@ -4,7 +4,7 @@ import { Cursor } from './Cursor';
 import { Node } from './Node';
 
 export class Parser {
-  static Error(message) {
+  static Error(message = 'Unexpected token') {
     return Error(message);
   }
 
@@ -17,7 +17,7 @@ export class Parser {
     function Query() {
       if (isAtEnd()) return null;
       const expr = OrExpression();
-      if (!isAtEnd()) throw Parser.Error('Unexpected token');
+      if (!isAtEnd()) throw Parser.Error();
       return expr;
     }
 
@@ -47,9 +47,26 @@ export class Parser {
                 Node.Field(
                   Node.FieldName(token.value),
                   Node.FieldValue(previous().value)));
+
+            case (match(Token.LEFT_PAREN)):
+              const fields = [];
+              while (match(Token.VALUE)) {
+                const nameToken = previous();
+                if (match(Token.COLON) && match(Token.VALUE)) {
+                  const valueToken = previous();
+                  fields.push(
+                    Node.Field(
+                      Node.FieldName(nameToken.value),
+                      Node.FieldValue(valueToken.value)));
+                  continue;
+                }
+                throw Parser.Error();
+              }
+              if (match(Token.RIGHT_PAREN))
+                return Node.Tuple(Node.TupleName(token.value), fields);
           }
         default:
-          throw Parser.Error('Unexpected token');
+          throw Parser.Error();
       }
     }
 

@@ -1,6 +1,6 @@
 import { Parser } from './Parser';
 import { Node } from './Node';
-import { deepEqual } from 'assert';
+import { deepEqual, throws } from 'assert';
 
 describe('Parser', function() {
   it('should correctly parse empty string', function() {
@@ -67,5 +67,25 @@ describe('Parser', function() {
         Node.Field(Node.FieldName('zoo'), Node.FieldValue('moo'))
       )
     );
+  });
+
+  describe('Error', function() {
+    const UNEXPECTED_TOKEN = /Unexpected token/;
+
+    it('should throw error if "Field" expression is incomplete', function() {
+      throws(() => Parser.parse('foo: '), UNEXPECTED_TOKEN);
+    });
+
+    it('should throw error if "or" expression is incomplete', function() {
+      throws(() => Parser.parse('foo: bar or'), UNEXPECTED_TOKEN);
+    });
+
+    it('should throw error if "and" expression is incomplete', function() {
+      throws(() => Parser.parse('foo: bar and'), UNEXPECTED_TOKEN);
+    });
+
+    it('should throw error if query expression is invalid', function() {
+      throws(() => Parser.parse('foo: bar foo'), UNEXPECTED_TOKEN);
+    });
   });
 });

@@ -16,7 +16,9 @@ export class Parser {
 
     function Query() {
       if (isAtEnd()) return null;
-      return OrExpression();
+      const expr = OrExpression();
+      if (!isAtEnd()) throw Parser.Error('Unexpected token');
+      return expr;
     }
 
     function OrExpression() {

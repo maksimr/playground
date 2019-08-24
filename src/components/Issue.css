@@ -1,0 +1,11 @@
+.issue td {
+  padding: var(--gridUnit);
+}
+
+.issueId {
+  font-size: var(--fontSizeBody2);
+  padding-right: var(--gridUnit);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}

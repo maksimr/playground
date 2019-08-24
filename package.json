@@ -2,9 +2,12 @@
   "name": "playground",
   "version": "0.0.0",
   "scripts": {
-    "start": "webpack-dev-server --mode=development --host=0.0.0.0 --devtool=eval-source-map"
+    "start": "webpack-dev-server --module-bind 'css=style-loader!css-loader?modules=true' --mode=development --host=0.0.0.0 --devtool=eval-source-map"
   },
   "devDependencies": {
+    "preact": "8.5.2",
+    "rxjs": "6.5.2",
+    "immer": "3.2.0",
     "css-loader": "2.1.0",
     "style-loader": "0.23.1",
     "webpack": "4.30.0",

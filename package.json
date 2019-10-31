@@ -2,9 +2,11 @@
   "name": "playground",
   "version": "0.0.0",
   "scripts": {
-    "start": "webpack-dev-server --mode=development --host=0.0.0.0 --devtool=eval-source-map"
+    "start": "webpack-dev-server --entry=./src/index.ts --output=./dist/main.js --mode=development --host=0.0.0.0 --devtool=eval-source-map --module-bind='ts=ts-loader'"
   },
   "devDependencies": {
+    "typescript": "3.6.4",
+    "ts-loader": "6.2.1",
     "css-loader": "3.2.0",
     "style-loader": "1.0.0",
     "webpack": "4.40.0",

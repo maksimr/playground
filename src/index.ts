@@ -1,5 +1,5 @@
 function main(): void {
-  console.log('Hello World!');
+  document.getElementById('app').innerText = 'Hello World!';
 }
 
 

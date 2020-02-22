@@ -5,7 +5,7 @@ function main() {
    * @param {Function} listener
    * @return {function(...[*]=)}
    */
-  function addResizeListener(element, listener) {
+  function addResizeListenerByObject(element, listener) {
     if (window.getComputedStyle(element).position === 'static')
       element.style.position = 'relative';
     const obj = document.createElement('object');
@@ -20,7 +20,7 @@ function main() {
     };
   }
 
-  addResizeListener(document.getElementById('app'), () => {
+  addResizeListenerByObject(document.getElementById('app'), () => {
     console.log('resize');
   });
 }

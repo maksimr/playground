@@ -1,7 +1,7 @@
 /**
  * @see http://www.backalleycoder.com/2013/03/18/cross-browser-event-based-element-resize-detection/kjj
  * @param {HTMLElement} element
- * @param {Function} listener
+ * @param {function} listener
  * @return {function(...[*]=)} Remove listener function
  */
 export function addResizeListener(element, listener) {

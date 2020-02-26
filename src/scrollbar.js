@@ -9,8 +9,8 @@ export class Scrollbar {
     const totalSize = params.totalSize;
     const maxBrowserScrollSize = calcMaxBrowserScrollSize();
     const scrollSize = maxBrowserScrollSize > totalSize ? totalSize : maxBrowserScrollSize;
-    const numberOfPages = Math.ceil(totalSize / maxBrowserScrollSize);
-    const pageSize = Math.floor(totalSize / numberOfPages);
+    const pageSize = Math.floor(maxBrowserScrollSize / 100);
+    const numberOfPages = Math.ceil(totalSize / pageSize);
     const overlapSize = totalSize > maxBrowserScrollSize ? (totalSize - maxBrowserScrollSize) / (numberOfPages - 1) : 1;
 
     let currentPage = 0;

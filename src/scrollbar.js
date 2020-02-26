@@ -107,14 +107,14 @@ export class Scrollbar {
     }
     this.scrollRafId = requestAnimationFrame(() => {
       this.scrollRafId = null;
-      this.doScroll();
+      this.onScroll();
     });
   }
 
   /**
    * @private
    */
-  doScroll() {
+  onScroll() {
     const viewportScrollTop = this.viewportNode.scrollTop;
     if (Math.abs(viewportScrollTop - this.prevViewportScrollTop) > this.viewportSize) {
       this.onJump();
@@ -122,6 +122,7 @@ export class Scrollbar {
       this.onSmoothScroll();
     }
 
+    this.prevViewportScrollTop = this.viewportNode.scrollTop;
     this.scrollTop = this.viewportNode.scrollTop + this.currentPageOffset;
     this.scrollListener();
   }
@@ -134,15 +135,9 @@ export class Scrollbar {
 
     if ((scrollTop + this.viewportSize) + this.currentPageOffset > (this.currentPage + 1) * this.pageSize) {
       this.jumpOnNextPage();
-      return;
-    }
-
-    if (this.currentPage && (scrollTop + this.currentPageOffset) <= this.currentPage * this.pageSize) {
+    } else if (this.currentPage && (scrollTop + this.currentPageOffset) <= this.currentPage * this.pageSize) {
       this.jumpOnPrevPage();
-      return;
     }
-
-    this.prevViewportScrollTop = scrollTop;
   }
 
   /**
@@ -189,7 +184,6 @@ export class Scrollbar {
   setCurrentPage(currentPage) {
     this.currentPage = currentPage;
     this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
-    this.prevViewportScrollTop = this.viewportNode.scrollTop;
   }
 
   /**

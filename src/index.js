@@ -43,7 +43,7 @@ function main() {
     style.boxSizing = 'border-box';
     style.borderBottom = '1px dotted blue';
     style.fontSize = '9pt';
-    style.top = scrollbar.convertVirtualPositionToActual(row * itemSize) + 'px';
+    style.top = scrollbar.calc(row * itemSize) + 'px';
     style.height = itemSize + 'px';
     rw.innerText = 'row ' + (row + 1);
     viewport.appendChild(rw);

@@ -3,70 +3,80 @@ export class Scrollbar {
     return new Scrollbar(viewport, params);
   }
 
-  constructor(viewport, params) {
+  constructor(viewportNode, params) {
     const scrollbar = this;
-    const viewportSize = viewport.offsetHeight;
+    const horizontal = params.horizontal;
+    const viewportSize = horizontal ? viewportNode.offsetWidth : viewportNode.offsetHeight;
     const totalSize = params.totalSize;
-    const maxBrowserScrollSize = calcMaxBrowserScrollSize();
+    const maxBrowserScrollSize = calcMaxBrowserScrollSize(horizontal);
     const scrollSize = maxBrowserScrollSize > totalSize ? totalSize : maxBrowserScrollSize;
     const pageSize = Math.floor(maxBrowserScrollSize / 100);
-    const numberOfPages = Math.ceil(totalSize / pageSize);
-    const overlapSize = totalSize > maxBrowserScrollSize ? (totalSize - maxBrowserScrollSize) / (numberOfPages - 1) : 1;
+    const pageCount = Math.ceil(totalSize / pageSize);
+    const overlapSize = totalSize > maxBrowserScrollSize ? (totalSize - maxBrowserScrollSize) / (pageCount - 1) : 1;
 
     let currentPage = 0;
     let prevScrollTop = 0;
+    let scrollRafId = null;
 
     scrollbar.currentPageOffset = 0;
     scrollbar.scrollTop = 0;
 
-    const runway = document.createElement('div');
-    runway.style.height = scrollSize + 'px';
-    runway.style.position = 'relative';
-    runway.style.visibility = 'hidden';
-    runway.style.overflow = 'hidden';
-    runway.style.width = '1px';
+    const runwayNode = document.createElement('div');
+    runwayNode.style[horizontal ? 'width' : 'height'] = scrollSize + 'px';
+    runwayNode.style.position = 'relative';
+    runwayNode.style.visibility = 'hidden';
+    runwayNode.style.overflow = 'hidden';
+    runwayNode.style.width = '1px';
 
-    viewport.appendChild(runway);
-    viewport.addEventListener('scroll', onScroll);
+    viewportNode.appendChild(runwayNode);
+    viewportNode.addEventListener('scroll', () => {
+      if (scrollRafId) {
+        return;
+      }
+      scrollRafId = requestAnimationFrame(() => {
+        scrollRafId = null;
+        onScroll();
+      });
+    });
 
     function onScroll() {
-      const scrollTop = viewport.scrollTop;
+      const scrollTop = viewportNode.scrollTop;
       if (Math.abs(scrollTop - prevScrollTop) > viewportSize) {
         onJump();
       } else {
         onNearScroll();
       }
 
-      scrollbar.scrollTop = viewport.scrollTop + scrollbar.currentPageOffset;
+      scrollbar.scrollTop = viewportNode.scrollTop + scrollbar.currentPageOffset;
       params.onScroll();
     }
 
     function onNearScroll() {
-      const scrollTop = viewport.scrollTop;
+      const scrollTop = viewportNode.scrollTop;
 
       // next page
       if ((scrollTop + viewportSize) + scrollbar.currentPageOffset > (currentPage + 1) * pageSize) {
         currentPage++;
         scrollbar.currentPageOffset = Math.round(currentPage * overlapSize);
-        viewport.scrollTop = ((prevScrollTop = scrollTop - overlapSize));
+        viewportNode.scrollTop = ((prevScrollTop = scrollTop - overlapSize));
       } else if (currentPage && scrollTop + scrollbar.currentPageOffset <= currentPage * pageSize) {
         // prev page
         currentPage--;
         scrollbar.currentPageOffset = Math.round(currentPage * overlapSize);
-        viewport.scrollTop = ((prevScrollTop = scrollTop + overlapSize));
+        viewportNode.scrollTop = ((prevScrollTop = scrollTop + overlapSize));
       } else prevScrollTop = scrollTop;
     }
 
     function onJump() {
-      const scrollTop = viewport.scrollTop;
+      const scrollTop = viewportNode.scrollTop;
       currentPage = Math.floor(scrollTop * ((totalSize - viewportSize) / (scrollSize - viewportSize)) * (1 / pageSize));
       scrollbar.currentPageOffset = Math.round(currentPage * overlapSize);
       prevScrollTop = scrollTop;
     }
   }
 
-  convertVirtualPositionToActual(virtualPosition) {
-    return virtualPosition - this.currentPageOffset;
+  convertVirtualPositionToActual(virtualScrollPosition) {
+    return virtualScrollPosition - this.currentPageOffset;
   }
 }
 

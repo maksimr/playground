@@ -36,10 +36,16 @@ function main() {
 
   function renderRow(row) {
     const rw = document.createElement('div');
-    rw.classList.add('row');
+    const style = rw.style;
+    style.position = 'absolute';
+    style.left = '0';
+    style.width = '100%';
+    style.boxSizing = 'border-box';
+    style.borderBottom = '1px dotted blue';
+    style.fontSize = '9pt';
+    style.top = scrollbar.convertVirtualPositionToActual(row * itemSize) + 'px';
+    style.height = itemSize + 'px';
     rw.innerText = 'row ' + (row + 1);
-    rw.style.top = scrollbar.convertVirtualPositionToActual(row * itemSize) + 'px';
-    rw.style.height = itemSize + 'px';
     viewport.appendChild(rw);
     return rw;
   }

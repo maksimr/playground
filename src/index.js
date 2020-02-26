@@ -10,7 +10,7 @@ function main() {
   const viewportSize = viewport.offsetHeight;
   const scrollbar = Scrollbar.build(viewport, {
     totalSize: totalSize,
-    onScroll: () => renderRows()
+    scrollListener: () => renderRows()
   });
   renderRows();
 

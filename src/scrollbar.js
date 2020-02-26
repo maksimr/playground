@@ -22,6 +22,7 @@ export class Scrollbar {
     const runway = document.createElement('div');
     runway.style.height = scrollSize + 'px';
     runway.style.position = 'relative';
+    runway.style.visibility = 'hidden';
     runway.style.overflow = 'hidden';
     runway.style.width = '1px';
 

@@ -149,20 +149,14 @@ export class Scrollbar {
    * @private
    */
   jumpOnNextPage() {
-    const scrollTop = this.viewportNode.scrollTop;
-    this.currentPage += 1;
-    this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
-    this.viewportNode.scrollTop = ((this.prevViewportScrollTop = scrollTop - this.overlapSize));
+    this.jumpOnPage(this.currentPage + 1);
   }
 
   /**
    * @private
    */
   jumpOnPrevPage() {
-    const scrollTop = this.viewportNode.scrollTop;
-    this.currentPage -= 1;
-    this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
-    this.viewportNode.scrollTop = ((this.prevViewportScrollTop = scrollTop + this.overlapSize));
+    this.jumpOnPage(this.currentPage - 1);
   }
 
   /**
@@ -170,9 +164,32 @@ export class Scrollbar {
    */
   onJump() {
     const viewportScrollTop = this.viewportNode.scrollTop;
-    this.currentPage = Math.floor(viewportScrollTop * ((this.totalSize - this.viewportSize) / (this.scrollSize - this.viewportSize)) * (1 / this.pageSize));
+    const pageNumber = Math.floor(viewportScrollTop * ((this.totalSize - this.viewportSize) / (this.scrollSize - this.viewportSize)) * (1 / this.pageSize));
+    this.setCurrentPage(pageNumber);
+  }
+
+  /**
+   * @private
+   * @param {number} currentPage
+   */
+  jumpOnPage(currentPage) {
+    const prevPage = this.currentPage;
+    if (prevPage < currentPage) {
+      this.viewportNode.scrollTop = this.viewportNode.scrollTop - this.overlapSize;
+    } else if (prevPage > currentPage) {
+      this.viewportNode.scrollTop = this.viewportNode.scrollTop + this.overlapSize;
+    }
+    this.setCurrentPage(currentPage);
+  }
+
+  /**
+   * @private
+   * @param {number} currentPage
+   */
+  setCurrentPage(currentPage) {
+    this.currentPage = currentPage;
     this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
-    this.prevViewportScrollTop = viewportScrollTop;
+    this.prevViewportScrollTop = this.viewportNode.scrollTop;
   }
 
   /**

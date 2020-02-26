@@ -132,23 +132,37 @@ export class Scrollbar {
   onSmoothScroll() {
     const scrollTop = this.viewportNode.scrollTop;
 
-    // next page
     if ((scrollTop + this.viewportSize) + this.currentPageOffset > (this.currentPage + 1) * this.pageSize) {
-      this.currentPage += 1;
-      this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
-      this.viewportNode.scrollTop = ((this.prevViewportScrollTop = scrollTop - this.overlapSize));
+      this.jumpOnNextPage();
       return;
     }
 
-    // prev page
     if (this.currentPage && (scrollTop + this.currentPageOffset) <= this.currentPage * this.pageSize) {
-      this.currentPage -= 1;
-      this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
-      this.viewportNode.scrollTop = ((this.prevViewportScrollTop = scrollTop + this.overlapSize));
+      this.jumpOnPrevPage();
       return;
     }
 
     this.prevViewportScrollTop = scrollTop;
+  }
+
+  /**
+   * @private
+   */
+  jumpOnNextPage() {
+    const scrollTop = this.viewportNode.scrollTop;
+    this.currentPage += 1;
+    this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
+    this.viewportNode.scrollTop = ((this.prevViewportScrollTop = scrollTop - this.overlapSize));
+  }
+
+  /**
+   * @private
+   */
+  jumpOnPrevPage() {
+    const scrollTop = this.viewportNode.scrollTop;
+    this.currentPage -= 1;
+    this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
+    this.viewportNode.scrollTop = ((this.prevViewportScrollTop = scrollTop + this.overlapSize));
   }
 
   /**

@@ -89,7 +89,11 @@ export class Scrollbar {
     this.runwayNode.style.visibility = 'hidden';
     this.runwayNode.style.overflow = 'hidden';
     this.runwayNode.style.width = '1px';
-    this.viewportNode.appendChild(this.runwayNode);
+    if (this.viewportNode.firstChild) {
+      this.viewportNode.insertBefore(this.runwayNode, this.viewportNode.firstChild);
+    } else {
+      this.viewportNode.appendChild(this.runwayNode);
+    }
 
     /**
      * @private
@@ -133,25 +137,25 @@ export class Scrollbar {
   onSmoothScroll() {
     const scrollTop = this.viewportNode.scrollTop;
 
-    if ((scrollTop + this.viewportSize) + this.currentPageOffset > (this.currentPage + 1) * this.pageSize) {
-      this.jumpOnNextPage();
-    } else if (this.currentPage && (scrollTop + this.currentPageOffset) <= this.currentPage * this.pageSize) {
-      this.jumpOnPrevPage();
+    if (scrollTop + this.currentPageOffset > (this.currentPage + 1) * this.pageSize) {
+      this.scrollToNextPage();
+    } else if (this.currentPage && (scrollTop + this.currentPageOffset) < this.currentPage * this.pageSize) {
+      this.scrollToPrevPage();
     }
   }
 
   /**
    * @private
    */
-  jumpOnNextPage() {
-    this.jumpOnPage(this.currentPage + 1);
+  scrollToNextPage() {
+    this.scrollOnPage(this.currentPage + 1);
   }
 
   /**
    * @private
    */
-  jumpOnPrevPage() {
-    this.jumpOnPage(this.currentPage - 1);
+  scrollToPrevPage() {
+    this.scrollOnPage(this.currentPage - 1);
   }
 
   /**
@@ -167,7 +171,7 @@ export class Scrollbar {
    * @private
    * @param {number} currentPage
    */
-  jumpOnPage(currentPage) {
+  scrollOnPage(currentPage) {
     const prevPage = this.currentPage;
     if (prevPage < currentPage) {
       this.viewportNode.scrollTop = this.viewportNode.scrollTop - this.overlapSize;
@@ -184,6 +188,15 @@ export class Scrollbar {
   setCurrentPage(currentPage) {
     this.currentPage = currentPage;
     this.currentPageOffset = Math.round(this.currentPage * this.overlapSize);
+  }
+
+  /**
+   * @param {number} scrollPosition
+   */
+  scrollTo(scrollPosition) {
+    this.scrollTop = scrollPosition;
+    this.scrollOnPage(Math.floor(scrollPosition / this.pageSize));
+    this.viewportNode.scrollTop = (this.prevViewportScrollTop = scrollPosition - this.currentPageOffset);
   }
 
   /**

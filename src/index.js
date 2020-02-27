@@ -32,6 +32,10 @@ function main() {
     for (let i = top; i <= bottom; i++) {
       if (!rows[i]) rows[i] = renderRow(i);
     }
+
+    for (let i = top; i <= bottom; i++) {
+      rows[i].style.top = scrollbar.calc(i * itemSize) + 'px';
+    }
   }
 
   function renderRow(row) {
@@ -43,7 +47,6 @@ function main() {
     style.boxSizing = 'border-box';
     style.borderBottom = '1px dotted blue';
     style.fontSize = '9pt';
-    style.top = scrollbar.calc(row * itemSize) + 'px';
     style.height = itemSize + 'px';
     rw.innerText = 'row ' + (row + 1);
     viewport.appendChild(rw);

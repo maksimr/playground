@@ -28,6 +28,10 @@ export class Scrollbar {
     /**
      * @private
      */
+    this.scrollNode = viewportNode;
+    /**
+     * @private
+     */
     this.totalSize = params.totalSize;
     /**
      * @private
@@ -40,7 +44,7 @@ export class Scrollbar {
     /**
      * @private
      */
-    this.viewportSize = this.horizontal ? this.viewportNode.offsetWidth : this.viewportNode.offsetHeight;
+    this.viewportSize = this.horizontal ? this.scrollNode.offsetWidth : this.scrollNode.offsetHeight;
     /**
      * @private
      */
@@ -99,7 +103,7 @@ export class Scrollbar {
      * @private
      */
     this.scheduleScroll = this.scheduleScroll.bind(this);
-    this.viewportNode.addEventListener('scroll', this.scheduleScroll);
+    this.scrollNode.addEventListener('scroll', this.scheduleScroll);
   }
 
   /**
@@ -119,23 +123,39 @@ export class Scrollbar {
    * @private
    */
   onScroll() {
-    const viewportScrollTop = this.viewportNode.scrollTop;
+    const viewportScrollTop = this.getViewportScrollTop();
     if (Math.abs(viewportScrollTop - this.prevViewportScrollTop) > this.viewportSize) {
       this.onJump();
     } else {
       this.onSmoothScroll();
     }
 
-    this.prevViewportScrollTop = this.viewportNode.scrollTop;
-    this.scrollTop = this.viewportNode.scrollTop + this.currentPageOffset;
+    this.prevViewportScrollTop = this.getViewportScrollTop();
+    this.scrollTop = this.getViewportScrollTop() + this.currentPageOffset;
     this.scrollListener();
+  }
+
+  /**
+   * @private
+   * @return {number}
+   */
+  getViewportScrollTop() {
+    return this.scrollNode.scrollTop;
+  }
+
+  /**
+   * @private
+   * @return {number}
+   */
+  setViewportScrollTop(viewportScrollTop) {
+    return this.scrollNode.scrollTop = viewportScrollTop;
   }
 
   /**
    * @private
    */
   onSmoothScroll() {
-    const scrollTop = this.viewportNode.scrollTop;
+    const scrollTop = this.getViewportScrollTop();
 
     if (scrollTop + this.currentPageOffset > (this.currentPage + 1) * this.pageSize) {
       this.scrollToNextPage();
@@ -162,7 +182,7 @@ export class Scrollbar {
    * @private
    */
   onJump() {
-    const viewportScrollTop = this.viewportNode.scrollTop;
+    const viewportScrollTop = this.getViewportScrollTop();
     const pageNumber = Math.floor(viewportScrollTop * ((this.totalSize - this.viewportSize) / (this.scrollSize - this.viewportSize)) * (1 / this.pageSize));
     this.setCurrentPage(pageNumber);
   }
@@ -174,9 +194,9 @@ export class Scrollbar {
   scrollOnPage(currentPage) {
     const prevPage = this.currentPage;
     if (prevPage < currentPage) {
-      this.viewportNode.scrollTop = this.viewportNode.scrollTop - this.overlapSize;
+      this.setViewportScrollTop(this.getViewportScrollTop() - this.overlapSize);
     } else if (prevPage > currentPage) {
-      this.viewportNode.scrollTop = this.viewportNode.scrollTop + this.overlapSize;
+      this.setViewportScrollTop(this.getViewportScrollTop() + this.overlapSize);
     }
     this.setCurrentPage(currentPage);
   }
@@ -196,7 +216,7 @@ export class Scrollbar {
   scrollTo(scrollPosition) {
     this.scrollTop = scrollPosition;
     this.scrollOnPage(Math.floor(scrollPosition / this.pageSize));
-    this.viewportNode.scrollTop = (this.prevViewportScrollTop = scrollPosition - this.currentPageOffset);
+    this.setViewportScrollTop(this.prevViewportScrollTop = scrollPosition - this.currentPageOffset);
   }
 
   /**
@@ -210,7 +230,7 @@ export class Scrollbar {
 
   destroy() {
     this.viewportNode.removeChild(this.runwayNode);
-    this.viewportNode.removeEventListener('scroll', this.scheduleScroll);
+    this.scrollNode.removeEventListener('scroll', this.scheduleScroll);
     if (this.scrollRafId) {
       cancelAnimationFrame(this.scrollRafId);
       this.scrollRafId = null;

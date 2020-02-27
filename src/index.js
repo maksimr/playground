@@ -7,7 +7,7 @@ function main() {
   const rows = {}; // cached row nodes
 
   const viewport = document.getElementById('app');
-  const viewportSize = viewport.offsetHeight;
+  const viewportSize = document.documentElement.clientHeight;
   const scrollbar = Scrollbar.build(viewport, {
     totalSize: totalSize,
     scrollListener: () => renderRows()

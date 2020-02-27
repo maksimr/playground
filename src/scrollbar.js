@@ -3,7 +3,7 @@ export class Scrollbar {
    * @typedef {{totalSize: number, scrollListener: function(...[*]=), horizontal: boolean=}} ScrollbarParams
    */
   /**
-   * @param {HTMLElement} viewportNode
+   * @param {Element} viewportNode
    * @param {ScrollbarParams} params
    */
   static build(viewportNode, params) {
@@ -11,7 +11,7 @@ export class Scrollbar {
   }
 
   /**
-   * @param {HTMLElement} viewportNode
+   * @param {Element} viewportNode
    * @param {ScrollbarParams} params
    */
   constructor(viewportNode, params) {
@@ -23,55 +23,72 @@ export class Scrollbar {
 
     /**
      * @private
+     * @type Element
      */
     this.viewportNode = viewportNode;
     /**
      * @private
+     * @type Element
      */
-    this.scrollNode = viewportNode;
+    this.scrollNode = findScrollableNode(this.viewportNode);
+    /**
+     * @private
+     * @type Element
+     */
+    this.scrollListenNode = this.scrollNode === document.documentElement ? window : this.scrollNode;
     /**
      * @private
      */
     this.totalSize = params.totalSize;
     /**
      * @private
+     * @type function()
      */
     this.scrollListener = params.scrollListener;
     /**
      * @private
+     * @type boolean
      */
     this.horizontal = params.horizontal;
     /**
      * @private
+     * @type number
      */
-    this.viewportSize = this.horizontal ? this.scrollNode.offsetWidth : this.scrollNode.offsetHeight;
+    this.viewportSize = this.horizontal ? this.scrollNode.clientWidth : this.scrollNode.clientHeight;
     /**
      * @private
+     * @type number
      */
     this.maxBrowserScrollSize = calcMaxBrowserScrollSize(this.horizontal);
     /**
      * @private
+     * @type number
      */
     this.scrollSize = this.maxBrowserScrollSize > this.totalSize ? this.totalSize : this.maxBrowserScrollSize;
     /**
      * @private
+     * @type number
      */
     this.pageSize = Math.floor(this.maxBrowserScrollSize / 100);
     /**
      * @private
+     * @type number
      */
     this.pageCount = Math.ceil(this.totalSize / this.pageSize);
     /**
      * @private
+     * @type number
      */
     this.overlapSize = this.totalSize > this.maxBrowserScrollSize ? (this.totalSize - this.maxBrowserScrollSize) / (this.pageCount - 1) : 1;
 
     /**
      * @private
+     * @type number
      */
     this.currentPage = 0;
     /**
      * @private
+     * @type number
      */
     this.prevViewportScrollTop = 0;
     /**
@@ -81,11 +98,13 @@ export class Scrollbar {
 
     /**
      * @private
+     * @type number
      */
     this.currentPageOffset = 0;
 
     /**
      * @private
+     * @type Element
      */
     this.runwayNode = document.createElement('div');
     this.runwayNode.style[this.horizontal ? 'width' : 'height'] = this.scrollSize + 'px';
@@ -214,16 +233,17 @@ export class Scrollbar {
      * @private
      */
     this.scheduleScroll = this.scheduleScroll.bind(this);
-    this.scrollNode.addEventListener('scroll', this.scheduleScroll);
+    this.scrollListenNode.addEventListener('scroll', this.scheduleScroll);
   }
 
   /**
    * @private
    */
   removeScrollListener() {
-    this.scrollNode.removeEventListener('scroll', this.scheduleScroll);
+    this.scrollListenNode.removeEventListener('scroll', this.scheduleScroll);
   }
 
+  // noinspection JSUnusedGlobalSymbols
   /**
    * @public
    * @param {number} scrollPosition
@@ -234,6 +254,7 @@ export class Scrollbar {
     this.setViewportScrollTop(this.prevViewportScrollTop = scrollPosition - this.currentPageOffset);
   }
 
+  // noinspection JSUnusedGlobalSymbols
   /**
    * @public
    * Calculate actual position on viewport for passed scrollbar position
@@ -244,6 +265,7 @@ export class Scrollbar {
     return position - this.currentPageOffset;
   }
 
+  // noinspection JSUnusedGlobalSymbols
   /**
    * @public
    */
@@ -272,4 +294,20 @@ export function calcMaxBrowserScrollSize(horizontal) {
   const size = div.getBoundingClientRect()[horizontal ? 'left' : 'top'];
   document.body.removeChild(div);
   return Math.abs(size);
+}
+
+/**
+ * @param {Element|Node} node
+ * @return {Element}
+ */
+function findScrollableNode(node) {
+  while (node.parentNode && node.parentNode !== document) {
+    const overflow = window.getComputedStyle(node).overflow;
+    if (overflow === 'visible' || overflow === '') {
+      node = node.parentNode;
+      continue;
+    }
+    break;
+  }
+  return node;
 }

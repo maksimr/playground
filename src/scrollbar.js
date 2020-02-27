@@ -99,11 +99,7 @@ export class Scrollbar {
       this.viewportNode.appendChild(this.runwayNode);
     }
 
-    /**
-     * @private
-     */
-    this.scheduleScroll = this.scheduleScroll.bind(this);
-    this.scrollNode.addEventListener('scroll', this.scheduleScroll);
+    this.addScrollListener();
   }
 
   /**
@@ -211,6 +207,25 @@ export class Scrollbar {
   }
 
   /**
+   * @private
+   */
+  addScrollListener() {
+    /**
+     * @private
+     */
+    this.scheduleScroll = this.scheduleScroll.bind(this);
+    this.scrollNode.addEventListener('scroll', this.scheduleScroll);
+  }
+
+  /**
+   * @private
+   */
+  removeScrollListener() {
+    this.scrollNode.removeEventListener('scroll', this.scheduleScroll);
+  }
+
+  /**
+   * @public
    * @param {number} scrollPosition
    */
   scrollTo(scrollPosition) {
@@ -220,6 +235,7 @@ export class Scrollbar {
   }
 
   /**
+   * @public
    * Calculate actual position on viewport for passed scrollbar position
    * @param {number} position
    * @return {number} Actual position on viewport
@@ -228,9 +244,12 @@ export class Scrollbar {
     return position - this.currentPageOffset;
   }
 
+  /**
+   * @public
+   */
   destroy() {
     this.viewportNode.removeChild(this.runwayNode);
-    this.scrollNode.removeEventListener('scroll', this.scheduleScroll);
+    this.removeScrollListener();
     if (this.scrollRafId) {
       cancelAnimationFrame(this.scrollRafId);
       this.scrollRafId = null;

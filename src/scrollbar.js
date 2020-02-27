@@ -155,7 +155,9 @@ export class Scrollbar {
    * @return {number}
    */
   getViewportScrollTop() {
-    return this.scrollNode.scrollTop;
+    return this.scrollNode !== this.viewportNode ?
+      Math.max(this.scrollNode.scrollTop - this.viewportNode.offsetTop, 0) :
+      this.scrollNode.scrollTop;
   }
 
   /**

@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: node
-        run: echo "::set-output name=version::$(cat .nvmrc)"
+        run: echo "##[set-output name=versoin;]$(cat .nvmrc)"
         id: node
       - uses: actions/setup-node@v1
         with:

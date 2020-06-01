@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "webpack-dev-server --mode=development --disable-host-check=true --host=0.0.0.0 --port=1234 --devtool=eval-source-map",
+    "build": "webpack --mode=production",
     "test": "jest"
   },
   "devDependencies": {

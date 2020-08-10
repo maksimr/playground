@@ -1,18 +1,15 @@
 {
   "name": "playground",
   "version": "0.0.0",
+  "main": "index.html",
   "scripts": {
-    "start": "webpack-dev-server --mode=development --disable-host-check=true --host=0.0.0.0 --port=1234 --devtool=eval-source-map",
-    "build": "webpack --mode=production",
-    "test": "jest"
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
   },
   "devDependencies": {
+    "@babel/core": "7.11.1",
+    "parcel-bundler": "1.12.4",
     "jest": "26.3.0",
-    "jest-cli": "26.3.0",
-    "css-loader": "4.2.1",
-    "style-loader": "1.2.1",
-    "webpack": "4.44.1",
-    "webpack-cli": "3.3.12",
-    "webpack-dev-server": "3.11.0"
+    "jest-cli": "26.3.0"
   }
 }

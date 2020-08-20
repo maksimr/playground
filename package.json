@@ -7,7 +7,7 @@
     "build": "parcel build index.html"
   },
   "devDependencies": {
-    "@babel/core": "7.11.1",
+    "@babel/core": "7.11.4",
     "parcel-bundler": "1.12.4",
     "jest": "26.4.1",
     "jest-cli": "26.4.1"

@@ -4,12 +4,39 @@
   "main": "index.html",
   "scripts": {
     "start": "parcel index.html --open",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "lint": "eslint src/"
   },
   "devDependencies": {
     "@babel/core": "7.11.4",
+    "@babel/eslint-parser": "7.11.4",
+    "eslint": "7.7.0",
     "parcel-bundler": "1.12.4",
     "jest": "26.4.2",
     "jest-cli": "26.4.2"
+  },
+  "eslintConfig": {
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "requireConfigFile": false,
+      "ecmaVersion": 8,
+      "sourceType": "module"
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "rules": {
+      "no-undef": "warn",
+      "no-unused-vars": "warn",
+      "valid-jsdoc": [
+        "warn",
+        {
+          "requireReturn": false,
+          "requireParamDescription": false,
+          "requireReturnDescription": false
+        }
+      ]
+    }
   }
 }

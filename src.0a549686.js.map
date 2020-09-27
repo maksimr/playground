@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/index.js"],"names":["main","document","getElementById","innerHTML"],"mappings":";AAAA,SAASA,IACPC,SAASC,eAAe,OAAOC,UAAY,eAG7CH","file":"src.0a549686.js","sourceRoot":"..","sourcesContent":["function main() {\n  document.getElementById('app').innerHTML = 'Hello World!';\n}\n\nmain();"]}

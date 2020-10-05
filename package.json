@@ -15,7 +15,7 @@
     "eslint": "7.10.0",
     "parcel-bundler": "1.12.4",
     "jest": "26.4.2",
-    "jest-cli": "26.4.2"
+    "jest-cli": "26.5.0"
   },
   "eslintConfig": {
     "parser": "@babel/eslint-parser",

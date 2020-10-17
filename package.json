@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "./src/index.js",
   "scripts": {
-    "start": "webpack-dev-server -d --disable-host-check --history-api-fallback --host 0.0.0.0 --public $(gp url 8080)",
+    "start": "webpack-dev-server -d --disable-host-check --history-api-fallback --host 0.0.0.0 --public $(command -v gp && gp url 8080)",
     "build": "webpack -p",
     "test": "jest --passWithNoTests",
     "lint": "eslint src/"

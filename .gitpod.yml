@@ -1,5 +1,6 @@
 tasks:
-  - init: npm ci
+  - before: export SANDBOX_URL="$(gp url 8080 2>/dev/null)"
+    init: npm ci
     command: npm start
 ports:
   - port: 8080

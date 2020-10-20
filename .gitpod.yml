@@ -1,5 +1,5 @@
 tasks:
   - init: npm ci
-    command: eval $(gp env -e SANDBOX_URL="$(gp url 8080 2>/dev/null)") && npm start
+    command: export SANDBOX_URL="$(gp url 8080 2>/dev/null)" && npm start
 ports:
   - port: 8080

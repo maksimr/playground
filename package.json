@@ -6,9 +6,11 @@
     "start": "webpack-dev-server -d --disable-host-check --history-api-fallback --host 0.0.0.0 --public $SANDBOX_URL",
     "build": "webpack -p",
     "test": "jest --passWithNoTests",
+    "test:type": "tsc",
     "lint": "eslint src/"
   },
   "devDependencies": {
+    "typescript": "4.1.2",
     "@babel/core": "7.12.10",
     "@babel/preset-env": "7.12.11",
     "@babel/eslint-parser": "7.12.1",

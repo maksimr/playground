@@ -1,5 +1,8 @@
 function main() {
-  document.getElementById('app').innerHTML = 'Hello World!';
+  const appNode = document.getElementById('app');
+  if (appNode) {
+    appNode.innerHTML = 'Hello World!';
+  }
 }
 
 main();

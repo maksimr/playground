@@ -5,6 +5,7 @@
     "checkJs": true,
     "noEmit": true,
     "skipLibCheck": true,
+    "strict": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
     "resolveJsonModule": true,

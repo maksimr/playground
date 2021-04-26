@@ -5,6 +5,9 @@ module.exports = () => ({
     filename: '[name].[contenthash].js',
     publicPath: ASSET_PATH
   },
+  devServer: {
+    public: process.env.SANDBOX_URL
+  },
   module: {
     rules: [
       {

@@ -18,9 +18,13 @@ module.exports = () => ({
         test: /\.css$/,
         use: [
           {
+            loader: require.resolve('style-loader')
+          },
+          {
             loader: require.resolve('css-loader'),
             options: {
               modules: {
+                auto: true,
                 localIdentName: '[local]--[hash:base64:5]'
               }
             }

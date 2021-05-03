@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "./src/index.js",
   "scripts": {
-    "start": "webpack serve --mode development --disable-host-check --history-api-fallback --host 0.0.0.0",
+    "start": "webpack serve --mode development --no-firewall --history-api-fallback --host 0.0.0.0",
     "build": "webpack --mode production",
     "test": "jest --passWithNoTests",
     "test:type": "tsc",
@@ -19,7 +19,7 @@
     "html-webpack-plugin": "5.3.1",
     "webpack": "5.36.2",
     "webpack-cli": "4.6.0",
-    "webpack-dev-server": "3.11.2",
+    "webpack-dev-server": "^4.0.0-beta.2",
     "eslint": "7.25.0",
     "jest": "26.6.3",
     "jest-cli": "26.6.3"

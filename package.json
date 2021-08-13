@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "./src/index.js",
   "scripts": {
-    "start": "webpack serve --mode development --devtool eval-source-map --no-firewall --history-api-fallback --host 0.0.0.0",
+    "start": "webpack serve --mode development --devtool eval-source-map --allowed-hosts=all --history-api-fallback --host 0.0.0.0",
     "build": "webpack --mode production",
     "test": "jest --passWithNoTests",
     "test:type": "tsc",

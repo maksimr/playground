@@ -6,7 +6,7 @@ module.exports = () => ({
     publicPath: ASSET_PATH
   },
   devServer: {
-    public: process.env.SANDBOX_URL
+    allowedHosts: 'all'
   },
   module: {
     rules: [

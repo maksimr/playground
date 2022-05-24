@@ -37,6 +37,7 @@
       "node": true
     },
     "rules": {
+      "semi": "warn",
       "no-undef": "warn",
       "no-unused-vars": "warn",
       "valid-jsdoc": [

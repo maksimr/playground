@@ -21,13 +21,19 @@
       "program": "${file}"
     },
     {
-      "name": "Launch Jest Tests",
+      "name": "Launch Tests",
       "type": "node",
       "request": "launch",
+      "runtimeExecutable": "npm",
       "runtimeArgs": [
-        "${workspaceRoot}/node_modules/.bin/jest",
+        "run-script",
+        "test",
+        "--",
         "--findRelatedTests",
         "${file}"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"

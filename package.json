@@ -22,8 +22,8 @@
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.9.2",
     "eslint": "8.18.0",
-    "jest": "28.1.1",
-    "jest-cli": "28.1.1"
+    "jest": "28.1.2",
+    "jest-cli": "28.1.2"
   },
   "eslintConfig": {
     "parser": "@babel/eslint-parser",

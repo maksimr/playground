@@ -1,6 +1,6 @@
 const ASSET_PATH = process.env.ASSET_PATH || '/';
 
-module.exports = () => ({
+module.exports = () => /**@type {import('webpack').Configuration}*/({
   output: {
     filename: '[name].[contenthash].js',
     publicPath: ASSET_PATH

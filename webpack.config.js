@@ -5,8 +5,15 @@ module.exports = () => /**@type {import('webpack').Configuration}*/({
     filename: '[name].[contenthash].js',
     publicPath: ASSET_PATH
   },
+  infrastructureLogging: {
+    level: 'warn'
+  },
   devServer: {
-    allowedHosts: 'all'
+    allowedHosts: 'all',
+    hot: false,
+    client: {
+      logging: 'warn'
+    },
   },
   module: {
     rules: [

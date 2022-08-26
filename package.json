@@ -15,6 +15,12 @@
     "@babel/core": "7.18.13",
     "@babel/preset-env": "7.18.10",
     "@babel/eslint-parser": "7.18.9",
+    "@babel/preset-react": "7.18.6",
+    "@types/react-dom": "18.0.6",
+    "@types/react": "18.0.17",
+    "eslint-plugin-react": "7.31.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "babel-loader": "8.2.5",
     "style-loader": "3.3.1",
     "css-loader": "6.7.1",
@@ -28,6 +34,9 @@
   },
   "eslintConfig": {
     "parser": "@babel/eslint-parser",
+    "plugins": [
+      "react"
+    ],
     "parserOptions": {
       "requireConfigFile": false,
       "ecmaVersion": 8,

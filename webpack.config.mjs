@@ -1,6 +1,9 @@
+import {createRequire} from 'module';
+
+const require = createRequire(import.meta.url);
 const ASSET_PATH = process.env.ASSET_PATH || '/';
 
-module.exports = () => /**@type {import('webpack').Configuration}*/({
+export default () => /**@type {import('webpack').Configuration}*/({
   output: {
     filename: '[name].[contenthash].js',
     publicPath: ASSET_PATH

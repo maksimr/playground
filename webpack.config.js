@@ -5,9 +5,6 @@ module.exports = () => /**@type {import('webpack').Configuration}*/({
     filename: '[name].[contenthash].js',
     publicPath: ASSET_PATH
   },
-  infrastructureLogging: {
-    level: 'warn'
-  },
   devServer: {
     allowedHosts: 'all',
     hot: false,
@@ -18,7 +15,7 @@ module.exports = () => /**@type {import('webpack').Configuration}*/({
   module: {
     rules: [
       {
-        test: /\.js(x)?$/,
+        test: /\.(j|t)s(x)?$/,
         loader: require.resolve('babel-loader')
       },
       {
@@ -39,6 +36,9 @@ module.exports = () => /**@type {import('webpack').Configuration}*/({
         ]
       }
     ]
+  },
+  resolve: {
+    extensions: ['', '.js', '.json', '.wasm', '.tsx', '.ts'],
   },
   plugins: [
     new (require('webpack').DefinePlugin)({

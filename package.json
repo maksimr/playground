@@ -10,7 +10,7 @@
     "lint": "eslint src/"
   },
   "devDependencies": {
-    "@babel/core": "7.22.15",
+    "@babel/core": "7.22.17",
     "@babel/eslint-parser": "7.22.15",
     "@babel/preset-env": "7.22.15",
     "@babel/preset-react": "7.22.15",

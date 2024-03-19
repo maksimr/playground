@@ -10,11 +10,11 @@
     "lint": "eslint src/"
   },
   "devDependencies": {
-    "@babel/core": "7.24.0",
-    "@babel/eslint-parser": "7.23.10",
-    "@babel/preset-env": "7.24.0",
-    "@babel/preset-react": "7.23.3",
-    "@babel/preset-typescript": "7.23.3",
+    "@babel/core": "7.24.1",
+    "@babel/eslint-parser": "7.24.1",
+    "@babel/preset-env": "7.24.1",
+    "@babel/preset-react": "7.24.1",
+    "@babel/preset-typescript": "7.24.1",
     "@types/react": "18.2.67",
     "@types/react-dom": "18.2.22",
     "@types/webpack": "5.28.5",

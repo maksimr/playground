@@ -21,6 +21,11 @@ jobs:
         run: |
           npm ci
           npm run build
+
+          CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
+          HTML_TITLE="Playground - ${CURRENT_BRANCH}"
+          sed -i '' "s|<title></title>|<title>${HTML_TITLE}</title>|" dist/index.html
+
           cp dist/index.html dist/404.html
         # https://www.smashingmagazine.com/2016/08/sghpa-single-page-app-hack-github-pages/
       - name: Deploy

@@ -1,1 +1,0 @@
-(()=>{var e;(e=document.getElementById("app"))&&(e.innerHTML="Hello World!")})();

@@ -1,6 +1,6 @@
 {
     "forwardPorts": [
-        8080
+        1234
     ],
     "postCreateCommand": "npm ci"
 }

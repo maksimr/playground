@@ -1,3 +1,4 @@
+.parcel-cache/
 dist/
 # Created by https://www.gitignore.io/api/intellij,vim,node,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=intellij,vim,node,visualstudiocode

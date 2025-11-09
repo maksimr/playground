@@ -1,7 +1,9 @@
+// @ts-check
+
 function main() {
-  const appNode = document.getElementById('app');
-  if (appNode) {
-    appNode.innerHTML = 'Hello World!';
+  const appElement = document.getElementById('app');
+  if (appElement) {
+    appElement.innerHTML = 'Hello World!';
   }
 }
 
